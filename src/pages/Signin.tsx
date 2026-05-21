@@ -25,7 +25,7 @@ export const Signin = () => {
         const jwtToken = response.data.token;
 
         localStorage.setItem("token", jwtToken);
-        navigate("/deshboard")    
+        navigate("/dashboard")    
     }
     return <div className="h-screen w-screen bg-gray-100  flex items-center justify-center">
         <div className="border shadow-md border-gray-200 rounded-2xl p-4"> 

@@ -2,8 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config";
 
+interface ContentItem {
+    _id: string;
+    title: string;
+    type: "X" | "Youtube" | "Document";
+    link: string;
+}
+
 export const useContent = () => {
-    const [content, setContent] = useState([]);
+    const [content, setContent] = useState<ContentItem[]>([]);
 
     useEffect(() => {
         axios.get( `${BACKEND_URL}/api/v1/content`, {

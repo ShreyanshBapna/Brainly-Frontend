@@ -10,12 +10,22 @@ import { useContent } from '../hooks/useContent'
 
 export const Dashboard = () => {
     const [modelOpen, setModelOpen] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState('all');
     const contents = useContent();
+
+    // Filter content based on selected type
+    const filteredContents = selectedFilter === 'all' 
+        ? contents 
+        : contents?.filter(content => content.type === selectedFilter) || [];
+
+    const handleFilterChange = (filterType: string) => {
+        setSelectedFilter(filterType);
+    };
 
   return (
     <div>
       <div>
-        <Sidebar/>
+        <Sidebar selectedFilter={selectedFilter} onFilterChange={handleFilterChange}/>
       </div>
      
       <div className='p-1 ml-65 min-h-screen bg-gray-100 pl-4'>
@@ -35,7 +45,7 @@ export const Dashboard = () => {
         </div>
         
         <div className='flex gap-2 flex-wrap'>
-          {contents.map(({title, type, link, _id}) => <Card contentId={_id} title={title} type={type} link={link}> </Card>
+          {filteredContents.map(({title, type, link, _id}) => <Card key={_id} contentId={_id} title={title} type={type} link={link}> </Card>
         )}
          
         </div>
